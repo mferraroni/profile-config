@@ -36,3 +36,17 @@ alias bashrc='vi /root/.bashrc && source /root/.bashrc'
 for i in $(ls -1 $HOME/configs); do
    . $HOME/configs/$i
 done
+
+if [ ! -f $HOME/ssh-agent-vars  ]; then
+   ssh-agent > $HOME/ssh-agent-vars
+   . $HOME/ssh-agent-vars
+   for i in $(ls -1 $HOME/.ssh/ | grep -Ev '(pub|known_hosts)'); do
+      echo "Importing key: $i";
+      ssh-add $HOME/.ssh/$i
+   done;
+else
+      . $HOME/ssh-agent-vars
+      echo "Keys loaded:";
+      ssh-add -l
+      echo 
+fi
