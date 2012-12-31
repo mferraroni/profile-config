@@ -31,14 +31,8 @@ alias log='git log --oneline && echo'
 alias checkout='git checkout $1'
 alias tag='git tag -a $1'
 
-## Alias for changing useful dirs
-alias cdw='cd /var/www/gestionale'
-alias cdi='cd /var/www/gestionale/inc'
-alias cdl='cd /var/www/gestionale/libs'
-alias cdt='cd /var/www/gestionale/templates'
-alias config='vi /var/www/gestionale/inc/config.php'
-alias readme='vi /var/www/gestionale/README.md'
-alias wwwown='chown -R www-data: /var/www/gestionale'
 alias bashrc='vi /root/.bashrc && source /root/.bashrc'
 
-
+for i in $(ls -1 $HOME/configs); do
+   . $HOME/configs/$i
+done

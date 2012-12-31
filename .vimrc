@@ -38,6 +38,12 @@ set wildmode=list:longest
 
 
 autocmd! BufNewFile * silent! 0r ~/.vim/skel/tmpl.%:e
-autocmd! BufWinLeave * mkview
-autocmd! BufWinEnter * silent loadview
+autocmd! BufWinLeave ?* mkview
+autocmd! BufWinEnter ?* silent loadview
 noremap <C-B> :!php -l %<CR>
+
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+inoremap <leader>, <C-x><C-o>
+augroup GoAwayPreviewWindow
+   autocmd! InsertLeave * wincmd z
+augroup end
