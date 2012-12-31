@@ -38,13 +38,13 @@ for i in $(ls -1 $HOME/configs); do
    . $HOME/configs/$i
 done
    
-COUNT=$(ls -1 $HOME/.ssh/ | grep -Ev '(pub|known_hosts|tun|sock|id_rsa)' | wc -l)
+COUNT=$(ls -1 $HOME/.ssh/ | grep -Ev '(pub|known_hosts|tun|sock)' | wc -l)
 
 
 if [ ! -f $HOME/ssh-agent-vars  ] && [ $COUNT -gt 0 ]; then
    ssh-agent > $HOME/ssh-agent-vars
    . $HOME/ssh-agent-vars
-   for i in $(ls -1 $HOME/.ssh/ | grep -Ev '(pub|known_hosts|tun|sock|id_rsa)'); do
+   for i in $(ls -1 $HOME/.ssh/ | grep -Ev '(pub|known_hosts|tun|sock)'); do
       echo "Importing key: $i";
       ssh-add $HOME/.ssh/$i
    done;
