@@ -31,13 +31,13 @@ alias push='git push origin'
 alias log='git log --oneline && echo'
 alias checkout='git checkout $1'
 alias tag='git tag -a $1'
+alias bashrc="vi $HOME/.bashrc && source $HOME/.bashrc"
+alias load="load"
 
-alias bashrc='vi /root/.bashrc && source /root/.bashrc'
+function load() {
+   source $HOME/configs/$1
+}
 
-for i in $(ls -1 $HOME/configs); do
-   . $HOME/configs/$i
-done
-   
 COUNT=$(ls -1 $HOME/.ssh/ | grep -Ev '(pub|known_hosts|tun|sock)' | wc -l)
 
 
