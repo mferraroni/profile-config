@@ -7,6 +7,8 @@ call pathogen#helptags()
 let g:Powerline_symbols = 'compatible'
 let mapleader = ","
 
+"let g:user_zen_leader_key = '<C-y>'
+
 filetype on
 filetype plugin on
 filetype indent on
@@ -37,13 +39,38 @@ set wildmenu
 set wildmode=list:longest
 
 
-autocmd! BufNewFile * silent! 0r ~/.vim/skel/tmpl.%:e
 autocmd! BufWinLeave ?* mkview
 autocmd! BufWinEnter ?* silent loadview
 noremap <C-B> :!php -l %<CR>
 
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-inoremap <leader>, <C-x><C-o>
-augroup GoAwayPreviewWindow
-   autocmd! InsertLeave * wincmd z
-augroup end
+"Windows maps
+  map <leader>. 10<c-w><
+  map <leader>/ 10<c-w>>
+  map <leader>= <c-w>=
+  map <leader>- <c-w>\|
+  map <leader>, <c-w><c-w>
+  map <leader>v <c-w><c-v>
+  map <leader>o :only<CR>
+  map <leader>h <c-w>s
+
+"Pageup and pagedown
+  map <leader><Down> <C-d>
+  map <leader><Up> <C-u>
+
+function! ViewHtmlText(url)
+   if !empty(a:url)
+        vnew
+         setlocal buftype=nofile bufhidden=hide noswapfile
+        execute 'r !elinks ' . a:url . ' -dump -dump-width ' . winwidth(0)
+        1d
+  endif
+endfunction  
+
+nnoremap <Leader>H :call ViewHtmlText('')
+nnoremap <Leader>p byw:call ViewHtmlText('http://jp2.php.net/' . @@)<CR>
+
+"Zen coding shortcuts
+imap <Leader><Tab> <C-y>,
+map <Leader><Tab> <C-y>,
+
+imap <Tab> <c-r>=TriggerSnippet()<cr> 
